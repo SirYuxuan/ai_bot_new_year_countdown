@@ -115,7 +115,7 @@
             display: flex;
             justify-content: center;
             gap: 25px;
-            flex-wrap: wrap;
+            flex-wrap: nowrap;
             margin-bottom: 30px;
         }
         
@@ -212,8 +212,8 @@
     
     <div class="container">
         <h1>🏮 农历新年倒计时 🏮</h1>
-        <div class="year-type">龙年大吉</div>
-        <div class="zodiac-sign">🐉 龙年吉祥</div>
+        <div class="year-type">马年大吉</div>
+        <div class="zodiac-sign">🐎 马到成功</div>
         <div class="countdown">
             <div class="time-unit">
                 <span id="days" class="time-value">00</span>
@@ -275,6 +275,8 @@
                     chineseNewYearDate = new Date("February 6, 2027 00:00:00");
                 } else if(currentYear === 2027) {
                     chineseNewYearDate = new Date("January 26, 2028 00:00:00");
+                } else if(currentYear === 2028) {
+                    chineseNewYearDate = new Date("February 16, 2029 00:00:00");
                 } else {
                     // 对于后续年份，简单地增加一年
                     chineseNewYearDate = new Date(chineseNewYearDate);
@@ -297,7 +299,7 @@
                 document.getElementById('hours').textContent = '00';
                 document.getElementById('minutes').textContent = '00';
                 document.getElementById('seconds').textContent = '00';
-                document.getElementById('message').textContent = '🎉 恭贺新春！龙年大吉！ 🎉';
+                document.getElementById('message').textContent = '🎉 恭贺新春！马年大吉！ 🎉';
                 return;
             }
             
@@ -315,13 +317,13 @@
             
             // 更新祝福语
             if (days === 0) {
-                document.getElementById('message').textContent = '🎊 新春佳节即将到来，恭祝您龙年大吉，万事如意！ 🎊';
+                document.getElementById('message').textContent = '🎊 新春佳节即将到来，恭祝您马年大吉，万事如意！ 🏮';
             } else if (days <= 7) {
-                document.getElementById('message').textContent = '🏮 新年临近，愿您龙年行大运，财源滚滚来！ 🏮';
+                document.getElementById('message').textContent = '🏮 新年临近，愿您马年行大运，财源滚滚来！ 🐎';
             } else if (days <= 30) {
-                document.getElementById('message').textContent = `还有 ${days} 天就是农历新年了，预祝您龙年吉祥！`;
+                document.getElementById('message').textContent = `还有 ${days} 天就是农历新年了，预祝您马年吉祥！`;
             } else {
-                document.getElementById('message').textContent = `距农历新年还有 ${days} 天，愿您龙年大吉！`;
+                document.getElementById('message').textContent = `距农历新年还有 ${days} 天，愿您马年大吉！`;
             }
         }
 
