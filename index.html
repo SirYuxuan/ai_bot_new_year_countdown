@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>新年倒计时</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: white;
+        }
+        
+        .container {
+            text-align: center;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+        }
+        
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        .countdown {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .time-unit {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 20px;
+            border-radius: 15px;
+            min-width: 100px;
+            margin: 10px;
+        }
+        
+        .time-value {
+            font-size: 3em;
+            font-weight: bold;
+            display: block;
+        }
+        
+        .time-label {
+            font-size: 1em;
+            display: block;
+            margin-top: 5px;
+        }
+        
+        .message {
+            margin-top: 30px;
+            font-size: 1.2em;
+        }
+        
+        @media (max-width: 768px) {
+            .time-unit {
+                min-width: 70px;
+                padding: 15px;
+            }
+            
+            .time-value {
+                font-size: 2em;
+            }
+            
+            h1 {
+                font-size: 2em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎉 新年倒计时 🎉</h1>
+        <div class="countdown">
+            <div class="time-unit">
+                <span id="days" class="time-value">00</span>
+                <span class="time-label">天</span>
+            </div>
+            <div class="time-unit">
+                <span id="hours" class="time-value">00</span>
+                <span class="time-label">小时</span>
+            </div>
+            <div class="time-unit">
+                <span id="minutes" class="time-value">00</span>
+                <span class="time-label">分钟</span>
+            </div>
+            <div class="time-unit">
+                <span id="seconds" class="time-value">00</span>
+                <span class="time-label">秒</span>
+            </div>
+        </div>
+        <div id="message" class="message"></div>
+    </div>
+
+    <script>
+        // 设置目标日期为明年的1月1日
+        function getNextYearDate() {
+            const now = new Date();
+            const nextYear = now.getFullYear() + 1;
+            return new Date(`January 1, ${nextYear} 00:00:00`);
+        }
+
+        function updateCountdown() {
+            const targetDate = getNextYearDate();
+            const currentDate = new Date();
+            
+            // 计算时间差
+            const diff = targetDate - currentDate;
+            
+            if (diff <= 0) {
+                document.getElementById('days').textContent = '00';
+                document.getElementById('hours').textContent = '00';
+                document.getElementById('minutes').textContent = '00';
+                document.getElementById('seconds').textContent = '00';
+                document.getElementById('message').textContent = '🎉 新年快乐！ 🎉';
+                return;
+            }
+            
+            // 计算天数、小时数、分钟数和秒数
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+            
+            // 更新显示
+            document.getElementById('days').textContent = String(days).padStart(2, '0');
+            document.getElementById('hours').textContent = String(hours).padStart(2, '0');
+            document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
+            document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
+            
+            // 更新祝福语
+            if (days === 0) {
+                document.getElementById('message').textContent = '新年即将到来，准备迎接新的开始！';
+            } else if (days <= 7) {
+                document.getElementById('message').textContent = '新年即将来临，期待美好的一年！';
+            } else {
+                document.getElementById('message').textContent = '距离新年还有 ' + days + ' 天';
+            }
+        }
+
+        // 初始更新
+        updateCountdown();
+        
+        // 每秒更新一次
+        setInterval(updateCountdown, 1000);
+    </script>
+</body>
+</html>

@@ -1,0 +1,21 @@
+{
+  "name": "new-year-countdown",
+  "version": "1.0.0",
+  "description": "A beautiful New Year countdown page",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve .",
+    "dev": "npx live-server --port=3000"
+  },
+  "keywords": [
+    "countdown",
+    "new-year",
+    "frontend",
+    "static-site"
+  ],
+  "author": "Rain轩",
+  "license": "MIT",
+  "devDependencies": {
+    "serve": "^14.2.1"
+  }
+}
