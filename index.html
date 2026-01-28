@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>新年倒计时</title>
+    <title>农历新年倒计时</title>
     <style>
         body {
-            font-family: 'Arial', sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: 'SimSun', 'Microsoft YaHei', serif;
+            background: linear-gradient(135deg, #b30000 0%, #ff6666 100%);
             margin: 0;
             padding: 0;
             display: flex;
@@ -15,74 +15,205 @@
             align-items: center;
             min-height: 100vh;
             color: white;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        /* 背景装饰元素 */
+        .lantern {
+            position: absolute;
+            width: 80px;
+            height: 120px;
+            background: radial-gradient(circle, #ff3300, #cc0000);
+            border-radius: 50%;
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.7);
+            z-index: -1;
+        }
+        
+        .lantern::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 10px;
+            height: 30px;
+            background: #ffd700;
+            border-radius: 5px;
+        }
+        
+        .lantern::after {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 5px;
+            background: #ffd700;
+            border-radius: 5px;
+        }
+        
+        .lantern:nth-child(1) {
+            top: 10%;
+            left: 15%;
+            animation: swing 3s ease-in-out infinite alternate;
+        }
+        
+        .lantern:nth-child(2) {
+            top: 20%;
+            right: 20%;
+            animation: swing 4s ease-in-out infinite alternate-reverse;
+        }
+        
+        .lantern:nth-child(3) {
+            bottom: 15%;
+            left: 25%;
+            animation: swing 3.5s ease-in-out infinite alternate;
+        }
+        
+        .lantern:nth-child(4) {
+            bottom: 25%;
+            right: 15%;
+            animation: swing 2.5s ease-in-out infinite alternate-reverse;
+        }
+        
+        @keyframes swing {
+            0% { transform: rotate(-5deg); }
+            100% { transform: rotate(5deg); }
         }
         
         .container {
             text-align: center;
-            background: rgba(0, 0, 0, 0.3);
-            padding: 40px;
+            background: rgba(120, 0, 0, 0.4);
+            padding: 50px;
             border-radius: 20px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
             backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 215, 0, 0.5);
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 20px;
         }
         
         h1 {
-            font-size: 2.5em;
+            font-size: 3em;
             margin-bottom: 30px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.8);
+            color: #ffd700;
+            font-family: 'KaiTi', '楷体', serif;
+        }
+        
+        .year-type {
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            color: #ffeb3b;
         }
         
         .countdown {
             display: flex;
             justify-content: center;
-            gap: 20px;
+            gap: 25px;
             flex-wrap: wrap;
+            margin-bottom: 30px;
         }
         
         .time-unit {
             background: rgba(255, 255, 255, 0.2);
-            padding: 20px;
+            padding: 25px;
             border-radius: 15px;
-            min-width: 100px;
+            min-width: 120px;
             margin: 10px;
+            border: 2px solid rgba(255, 215, 0, 0.5);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
         }
         
         .time-value {
-            font-size: 3em;
+            font-size: 3.5em;
             font-weight: bold;
             display: block;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+            color: #ffd700;
         }
         
         .time-label {
-            font-size: 1em;
+            font-size: 1.2em;
             display: block;
-            margin-top: 5px;
+            margin-top: 8px;
+            color: #ffffff;
         }
         
         .message {
             margin-top: 30px;
-            font-size: 1.2em;
+            font-size: 1.4em;
+            font-weight: bold;
+            color: #ffeb3b;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+        }
+        
+        .firecracker {
+            position: absolute;
+            width: 20px;
+            height: 50px;
+            background: #ff3300;
+            border-radius: 5px;
+            z-index: -1;
+        }
+        
+        .firecracker::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 15px;
+            background: #ffa500;
+        }
+        
+        .zodiac-sign {
+            font-size: 2em;
+            margin: 20px 0;
+            color: #ffd700;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
         }
         
         @media (max-width: 768px) {
+            .container {
+                padding: 30px 20px;
+            }
+            
             .time-unit {
-                min-width: 70px;
+                min-width: 80px;
                 padding: 15px;
             }
             
             .time-value {
-                font-size: 2em;
+                font-size: 2.5em;
             }
             
             h1 {
-                font-size: 2em;
+                font-size: 2.2em;
+            }
+            
+            .time-label {
+                font-size: 1em;
             }
         }
     </style>
 </head>
 <body>
+    <!-- 装饰灯笼 -->
+    <div class="lantern"></div>
+    <div class="lantern"></div>
+    <div class="lantern"></div>
+    <div class="lantern"></div>
+    
     <div class="container">
-        <h1>🎉 新年倒计时 🎉</h1>
+        <h1>🏮 农历新年倒计时 🏮</h1>
+        <div class="year-type">龙年大吉</div>
+        <div class="zodiac-sign">🐉 龙年吉祥</div>
         <div class="countdown">
             <div class="time-unit">
                 <span id="days" class="time-value">00</span>
@@ -101,19 +232,61 @@
                 <span class="time-label">秒</span>
             </div>
         </div>
-        <div id="message" class="message"></div>
+        <div id="message" class="message">恭祝新年快乐，万事如意！</div>
     </div>
 
     <script>
-        // 设置目标日期为明年的1月1日
-        function getNextYearDate() {
+        // 计算农历新年日期的函数
+        function getChineseNewYear(year) {
+            // 这里简化处理，基于公历年份估算农历新年日期
+            // 实际上农历日期需要复杂的天文计算
+            // 2024年春节是2月10日，2025年春节是1月29日
+            // 2026年春节是2月17日
+            // 2027年春节是2月6日
+            // 2028年春节是1月26日
+            
+            const currentYear = new Date().getFullYear();
+            let chineseNewYearDate;
+            
+            if(currentYear === 2024) {
+                chineseNewYearDate = new Date("February 10, 2024 00:00:00");
+            } else if(currentYear === 2025) {
+                chineseNewYearDate = new Date("January 29, 2025 00:00:00");
+            } else if(currentYear === 2026) {
+                chineseNewYearDate = new Date("February 17, 2026 00:00:00");
+            } else if(currentYear === 2027) {
+                chineseNewYearDate = new Date("February 6, 2027 00:00:00");
+            } else if(currentYear === 2028) {
+                chineseNewYearDate = new Date("January 26, 2028 00:00:00");
+            } else {
+                // 默认使用下一年的2月10日作为估算
+                chineseNewYearDate = new Date(`February 10, ${currentYear + 1} 00:00:00`);
+            }
+            
+            // 如果今年的农历新年已过，则使用下一年的日期
             const now = new Date();
-            const nextYear = now.getFullYear() + 1;
-            return new Date(`January 1, ${nextYear} 00:00:00`);
+            if(now > chineseNewYearDate) {
+                // 计算下一年的农历新年
+                if(currentYear === 2024) {
+                    chineseNewYearDate = new Date("January 29, 2025 00:00:00");
+                } else if(currentYear === 2025) {
+                    chineseNewYearDate = new Date("February 17, 2026 00:00:00");
+                } else if(currentYear === 2026) {
+                    chineseNewYearDate = new Date("February 6, 2027 00:00:00");
+                } else if(currentYear === 2027) {
+                    chineseNewYearDate = new Date("January 26, 2028 00:00:00");
+                } else {
+                    // 对于后续年份，简单地增加一年
+                    chineseNewYearDate = new Date(chineseNewYearDate);
+                    chineseNewYearDate.setFullYear(chineseNewYearDate.getFullYear() + 1);
+                }
+            }
+            
+            return chineseNewYearDate;
         }
 
         function updateCountdown() {
-            const targetDate = getNextYearDate();
+            const targetDate = getChineseNewYear();
             const currentDate = new Date();
             
             // 计算时间差
@@ -124,7 +297,7 @@
                 document.getElementById('hours').textContent = '00';
                 document.getElementById('minutes').textContent = '00';
                 document.getElementById('seconds').textContent = '00';
-                document.getElementById('message').textContent = '🎉 新年快乐！ 🎉';
+                document.getElementById('message').textContent = '🎉 恭贺新春！龙年大吉！ 🎉';
                 return;
             }
             
@@ -142,11 +315,13 @@
             
             // 更新祝福语
             if (days === 0) {
-                document.getElementById('message').textContent = '新年即将到来，准备迎接新的开始！';
+                document.getElementById('message').textContent = '🎊 新春佳节即将到来，恭祝您龙年大吉，万事如意！ 🎊';
             } else if (days <= 7) {
-                document.getElementById('message').textContent = '新年即将来临，期待美好的一年！';
+                document.getElementById('message').textContent = '🏮 新年临近，愿您龙年行大运，财源滚滚来！ 🏮';
+            } else if (days <= 30) {
+                document.getElementById('message').textContent = `还有 ${days} 天就是农历新年了，预祝您龙年吉祥！`;
             } else {
-                document.getElementById('message').textContent = '距离新年还有 ' + days + ' 天';
+                document.getElementById('message').textContent = `距农历新年还有 ${days} 天，愿您龙年大吉！`;
             }
         }
 
